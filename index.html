@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Frases de não entendimento – NEXTATION</title>
+  <style>
+    :root {
+      /* Core backgrounds */
+      --bg-main: #02030b;
+      --bg-gradient: radial-gradient(circle at top, #1c1f3b 0%, #050716 45%, #02030b 100%);
+      /* Surfaces / Cards */
+      --card-bg: rgba(15, 18, 40, 0.92);
+      --card-soft-bg: rgba(18, 21, 50, 0.88);
+      /* Neon accents */
+      --accent-cyan: #4ef2ff;
+      --accent-pink: #ff2f92;
+      --accent-green: #4dff9b;
+      --accent-yellow: #ffe25f;
+      --accent-purple: #aa5dff;
+      /* Text and borders */
+      --muted: rgba(255,255,255,0.65);
+      --border-glow: rgba(120,120,255,0.45);
+      /* Shadows */
+      --shadow-strong: 0 0 36px rgba(130,80,255,0.6);
+      --shadow-soft: 0 0 20px rgba(0,0,0,0.65);
+      /* Radii and transitions */
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.28s ease-out;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--bg-gradient);
+      color:#fff;
+      min-height:100vh;
+      padding:24px;
+      display:flex;
+      justify-content:center;
+    }
+    .app{ max-width:1100px; width:100%; }
+
+    /* HEADER */
+    .neon-header{
+      position:relative;
+      padding:18px 22px 14px;
+      border-radius:var(--radius-lg);
+      background:rgba(3,5,20,0.9);
+      box-shadow:var(--shadow-soft);
+      border:1px solid var(--border-glow);
+      margin-bottom:20px;
+      overflow:hidden;
+    }
+    .neon-header::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:linear-gradient(90deg,#00f5ff,#ff2f92,#ffe25f,#4dff9b);
+      opacity:0.5;
+      mix-blend-mode:screen;
+      pointer-events:none;
+      z-index:-1;
+    }
+    .header-main{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .teacher-orb{
+      width:64px;
+      height:64px;
+      border-radius:50%;
+      background:radial-gradient(circle,#ffffff 0%,#00fff0 35%,#ff2f92 70%,#02030b 100%);
+      box-shadow:0 0 24px rgba(0,255,255,0.7),0 0 32px rgba(255,0,160,0.55);
+      flex-shrink:0;
+    }
+    .brand-title{
+      font-size:1.4rem;
+      background:linear-gradient(90deg,#4ef2ff,#ff2f92);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      font-weight:700;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+    }
+    .brand-sub{
+      color:var(--muted);
+      font-size:0.9rem;
+      margin-top:2px;
+    }
+    .lesson-title{
+      margin-top:10px;
+      font-size:1.25rem;
+      color:var(--accent-cyan);
+      text-shadow:0 0 12px rgba(78,242,255,0.5);
+    }
+    .controls-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+      font-size:0.9rem;
+    }
+    .small-btn{
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px dashed rgba(255,255,255,0.35);
+      background:transparent;
+      color:#fff;
+      cursor:pointer;
+      font-size:0.8rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+    .small-btn:hover{
+      transform:scale(1.03);
+      border-color:var(--accent-cyan);
+      box-shadow:0 0 16px rgba(78,242,255,0.5);
+      background:rgba(4,10,40,0.9);
+    }
+
+    /* TABS */
+    .tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 16px;
+    }
+    .tab{
+      position:relative;
+      padding:9px 14px;
+      border-radius:var(--radius-md);
+      background:radial-gradient(circle at top,rgba(255,255,255,0.09),rgba(7,10,28,0.96));
+      border:1px solid rgba(130,140,200,0.4);
+      color:#fff;
+      font-size:0.9rem;
+      cursor:pointer;
+      transition:all var(--transition-fast);
+    }
+    .tab span.icon{margin-right:6px;}
+    .tab:hover{
+      border-color:rgba(120,120,255,0.6);
+      box-shadow:0 0 20px rgba(120,120,255,0.35);
+    }
+    .tab.active{
+      background:radial-gradient(circle at top,rgba(255,255,255,0.15),rgba(21,13,51,0.98));
+      border-color:rgba(103,255,196,0.9);
+      box-shadow:0 0 24px rgba(79,255,204,0.55);
+    }
+    .tab.completed::after{
+      content:"✓";
+      position:absolute;
+      top:-6px;
+      right:-6px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:#4dff9b;
+      color:#02030b;
+      font-size:0.7rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 0 10px rgba(77,255,179,0.9);
+    }
+
+    /* CARD */
+    .card{
+      position:relative;
+      border-radius:var(--radius-lg);
+      background:linear-gradient(135deg,rgba(13,16,40,0.98),rgba(6,8,26,0.98));
+      padding:20px 22px 22px;
+      border:1px solid rgba(120,120,255,0.32);
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+      min-height:260px;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-20%;
+      width:280px;
+      height:280px;
+      background:radial-gradient(circle at top left,rgba(87,57,255,0.35),transparent 58%);
+      pointer-events:none;
+    }
+    .card-inner{ position:relative; z-index:1; }
+
+    h2.section-title{
+      font-size:1.1rem;
+      color:var(--accent-cyan);
+      margin-bottom:4px;
+    }
+    .section-sub{
+      font-size:0.9rem;
+      color:var(--muted);
+      margin-bottom:12px;
+      line-height:1.6;
+    }
+    .highlight-expression{
+      display:inline-flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:linear-gradient(120deg,#ffe25f,#ff2f92,#4ef2ff);
+      color:#050618;
+      font-weight:700;
+      margin:8px 0 12px;
+    }
+    .play-btn{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px dashed rgba(255,255,255,0.35);
+      background:transparent;
+      color:#fff;
+      font-size:0.75rem;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      margin-left:6px;
+      transition:all var(--transition-fast);
+    }
+    .play-btn:hover{
+      border-color:var(--accent-cyan);
+      box-shadow:0 0 14px rgba(78,242,255,0.5);
+      transform:scale(1.03);
+    }
+
+    .sub-block{
+      background:var(--card-soft-bg);
+      border-radius:var(--radius-md);
+      padding:12px 14px;
+      border:1px solid rgba(178,75,243,0.45);
+      box-shadow:0 0 18px rgba(0,0,0,0.85);
+      font-size:0.9rem;
+      line-height:1.6;
+      margin-top:10px;
+    }
+    .sub-title{
+      font-weight:600;
+      color:var(--accent-yellow);
+      margin-bottom:6px;
+    }
+    .good{ color:#4dff9b; font-weight:600; }
+    .example-pt{ color:var(--muted); font-size:0.86rem; }
+
+    textarea{
+      width:100%;
+      min-height:100px;
+      background:rgba(2,6,32,0.95);
+      border-radius:var(--radius-md);
+      border:1px solid rgba(178,75,243,0.45);
+      color:#fff;
+      padding:10px 12px;
+      resize:vertical;
+      font-size:0.9rem;
+      line-height:1.5;
+      margin-top:6px;
+    }
+    .char-counter{
+      font-size:0.75rem;
+      color:var(--muted);
+      margin-top:4px;
+      text-align:right;
+    }
+
+    .footer-nav{
+      display:flex;
+      justify-content:space-between;
+      margin-top:14px;
+    }
+    .primary-btn,.secondary-btn{
+      padding:8px 14px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-size:0.9rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .primary-btn{
+      background:linear-gradient(135deg,var(--accent-pink),var(--accent-cyan));
+      color:#050618;
+      box-shadow:0 0 18px rgba(255,47,146,0.7);
+    }
+    .secondary-btn{
+      background:var(--card-soft-bg);
+      color:#fff;
+      border:1px solid rgba(130,140,200,0.6);
+    }
+    .export-bar{
+      margin-top:16px;
+      font-size:0.8rem;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .footer-meta{
+      margin-top:10px;
+      font-size:0.8rem;
+      color:rgba(255,255,255,0.55);
+    }
+    .brand{ color:var(--accent-cyan); font-weight:600; }
+
+    .practice-row{
+      margin-top:10px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+    }
+    .record-btn{
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.4);
+      background:rgba(8,10,30,0.9);
+      color:#fff;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:0.88rem;
+    }
+    .record-btn.recording{
+      border-color:#ff4b7a;
+      box-shadow:0 0 16px rgba(255,75,122,0.8);
+    }
+    .audio-wrapper{
+      flex:1;
+      min-width:200px;
+      font-size:0.8rem;
+      color:var(--muted);
+    }
+    .delete-btn{
+      margin-top:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #c62828;
+      background:transparent;
+      color:#ff8fa3;
+      font-size:0.75rem;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="neon-header">
+    <div class="header-main">
+      <div class="teacher-orb"></div>
+      <div>
+        <div class="brand-title">NEXTATION</div>
+        <div class="brand-sub">Frases de sobrevivência – “Não entendi” sem travar a reunião</div>
+        <div class="lesson-title">I don’t understand · Could you repeat, please? · Repeat, please</div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <button class="small-btn" onclick="window.print()">📄 Exportar em PDF</button>
+      <button class="small-btn" onclick="copyToSpreadsheet()">📋 Copiar texto para planilha</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="overview" onclick="showTab('overview')">
+      <span class="icon">🧠</span> Overview
+    </button>
+    <button class="tab" data-tab="tone" onclick="showTab('tone')">
+      <span class="icon">🎭</span> Tone
+    </button>
+    <button class="tab" data-tab="write" onclick="showTab('write')">
+      <span class="icon">✍️</span> Write
+    </button>
+    <button class="tab" data-tab="practice" onclick="showTab('practice')">
+      <span class="icon">🎙️</span> Speak
+    </button>
+  </div>
+
+  <main class="card">
+    <!-- OVERVIEW -->
+    <div class="card-inner" id="tab-overview">
+      <h2 class="section-title">1. Frases básicas pra quando você não entendeu</h2>
+      <p class="section-sub">
+        Em vez de travar e falar “I don’t understand” de qualquer jeito, você vai aprender 3 frases
+        chave e quando usar cada uma. Mistura inglês + português pra ficar automático.
+      </p>
+
+      <div class="highlight-expression">
+        I don’t understand. · Could you repeat, please? · Repeat, please.
+        <button class="play-btn" onclick="speak(`I don't understand. Could you repeat, please? Repeat, please.`)">
+          🔊 Ouvir
+        </button>
+      </div>
+
+      <div class="sub-block">
+        <div class="sub-title">1.1. Três níveis, três frases</div>
+        <p style="font-size:0.9rem;line-height:1.7;">
+          1️⃣ <strong class="good">I don’t understand.</strong>  
+          “Eu não entendo / não estou entendendo.” – bom em aula, conversa direta.<br><br>
+          2️⃣ <strong class="good">Could you repeat, please?</strong>  
+          “Você poderia repetir, por favor?” – mais educado, ótimo em call / reunião.<br><br>
+          3️⃣ <strong class="good">Repeat, please.</strong>  
+          Versão curta, tipo “Repete, por favor.” – natural com amigos ou quando o tempo é curto.
+        </p>
+      </div>
+    </div>
+
+    <!-- TONE -->
+    <div class="card-inner" id="tab-tone" style="display:none;">
+      <h2 class="section-title">2. Tom de voz: educado, neutro e informal 🎭</h2>
+      <p class="section-sub">
+        Não é só a gramática. É o <strong>tom</strong>. Aqui você escolhe se quer soar mais formal, neutro ou bem informal (tipo “não saquei”).
+      </p>
+
+      <div class="sub-block" style="border-color:rgba(78,242,255,0.7);">
+        <div class="sub-title">2.1. Escala de formalidade</div>
+        <ul style="font-size:0.9rem;line-height:1.7;margin-left:18px;">
+          <li>
+            <strong class="good">I’m not sure I understand.</strong> – formal / suave pra reunião
+            <button class="play-btn" onclick="speak(`I'm not sure I understand.`)">🔊 Play</button>
+          </li>
+          <li>
+            <strong class="good">I’m not sure I follow.</strong> – bem corporativo em call
+            <button class="play-btn" onclick="speak(`I'm not sure I follow.`)">🔊 Play</button>
+          </li>
+          <li>
+            <strong class="good">I don’t understand.</strong> – neutro, bom em aula
+            <button class="play-btn" onclick="speak(`I don't understand.`)">🔊 Play</button>
+          </li>
+          <li>
+            <strong class="good">I don’t get it.</strong> – informal, tipo “não saquei”
+            <button class="play-btn" onclick="speak(`I don't get it.`)">🔊 Play</button>
+          </li>
+        </ul>
+        <p style="font-size:0.9rem;margin-top:6px;">
+          💼 Reunião formal → “I’m not sure I understand / I’m not sure I follow.”<br>
+          😅 Amigo / colega → “I don’t get it.”
+        </p>
+      </div>
+    </div>
+
+    <!-- WRITE -->
+    <div class="card-inner" id="tab-write" style="display:none;">
+      <h2 class="section-title">3. Escreva as frases – fixando na mão ✍️</h2>
+      <p class="section-sub">
+        Traduza pro inglês, sem olhar ainda, usando o tom certo. Depois compare.
+      </p>
+
+      <div class="sub-block">
+        <div class="sub-title">3.1. Tradução</div>
+        <ol style="font-size:0.9rem;line-height:1.7;margin-left:18px;">
+          <li>Desculpa, eu não entendi. Você pode repetir?</li>
+          <li>Eu não entendo essa parte.</li>
+          <li>Você poderia repetir, por favor?</li>
+          <li>Eu não saquei isso.</li>
+        </ol>
+        <textarea id="write-area" placeholder="Escreva em inglês aqui..."></textarea>
+        <div class="char-counter" id="char-counter">0 caracteres</div>
+      </div>
+
+      <div class="sub-block">
+        <div class="sub-title">3.2. Gabarito sugerido</div>
+        <p style="font-size:0.9rem;line-height:1.7;">
+          1️⃣ <span class="good">Sorry, I didn’t understand. Could you repeat, please?</span><br>
+          2️⃣ <span class="good">I don’t understand this part.</span><br>
+          3️⃣ <span class="good">Could you repeat, please?</span><br>
+          4️⃣ <span class="good">I don’t get it.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- PRACTICE -->
+    <div class="card-inner" id="tab-practice" style="display:none;">
+      <h2 class="section-title">4. Fala – treinar o tom na boca 🎙️</h2>
+      <p class="section-sub">
+        Enquanto o botão estiver vermelho, você fala em voz alta, testando formal, neutro e informal.
+      </p>
+
+      <div class="sub-block">
+        <div class="sub-title">4.1. Mantra</div>
+        <p style="font-size:0.9rem;line-height:1.7;">
+          “I’m not sure I understand.”<br>
+          “I don’t understand.”<br>
+          “I don’t get it.”
+        </p>
+        <button class="play-btn" onclick="speak(`I'm not sure I understand. I don't understand. I don't get it.`)">🔊 Ouvir</button>
+      </div>
+
+      <div class="practice-row">
+        <button class="record-btn" id="record-btn" onclick="toggleRecord()">
+          <span id="record-dot">⏺️</span>
+          <span id="record-text">Marcar momento de prática</span>
+        </button>
+        <div class="audio-wrapper">
+          <div id="audio-status">
+            Nenhum áudio real é gravado – use o botão como compromisso: enquanto estiver vermelho,
+            você fala em voz alta essas frases com diferentes tons.
+          </div>
+          <button class="delete-btn" onclick="resetPractice()">Resetar status</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="footer-nav">
+    <button class="secondary-btn" onclick="prevTab()">⬅️ Voltar</button>
+    <button class="primary-btn" onclick="nextTab()">Próxima aba ➡️</button>
+  </div>
+
+  <div class="export-bar">
+    <span>📋 Copiar para planilha:</span>
+    <button class="small-btn" onclick="copyToSpreadsheet()">Copiar texto</button>
+    <span>• 📄 PDF: use o botão “Exportar em PDF” no topo.</span>
+  </div>
+
+  <footer class="footer-meta">
+    Criado para o app <span class="brand">NEXTATION</span> – foco em tom, não só em gramática. 🚀
+  </footer>
+</div>
+
+<script>
+  const tabOrder = ['overview','tone','write','practice'];
+
+  function showTab(id){
+    document.querySelectorAll('.card-inner').forEach(el=>el.style.display='none');
+    const target = document.getElementById('tab-'+id);
+    if(target) target.style.display='block';
+    document.querySelectorAll('.tab').forEach(t=>{
+      t.classList.remove('active');
+      if(t.dataset.tab===id) t.classList.add('active','completed');
+    });
+  }
+
+  function nextTab(){
+    const active = document.querySelector('.tab.active');
+    const idx = tabOrder.indexOf(active.dataset.tab);
+    if(idx < tabOrder.length-1) showTab(tabOrder[idx+1]);
+  }
+  function prevTab(){
+    const active = document.querySelector('.tab.active');
+    const idx = tabOrder.indexOf(active.dataset.tab);
+    if(idx > 0) showTab(tabOrder[idx-1]);
+  }
+
+  function speak(text){
+    if(!('speechSynthesis' in window)){
+      alert('Seu navegador não suporta áudio (SpeechSynthesis).');
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.98;
+    u.pitch = 1.0;
+    window.speechSynthesis.speak(u);
+  }
+
+  const writeArea = document.getElementById('write-area');
+  const counterEl = document.getElementById('char-counter');
+  if(writeArea && counterEl){
+    writeArea.addEventListener('input', ()=>{
+      counterEl.textContent = writeArea.value.length + ' caracteres';
+    });
+  }
+
+  let recording = false;
+  function toggleRecord(){
+    recording = !recording;
+    const btn = document.getElementById('record-btn');
+    const txt = document.getElementById('record-text');
+    const dot = document.getElementById('record-dot');
+    const status = document.getElementById('audio-status');
+    if(recording){
+      btn.classList.add('recording');
+      dot.textContent = '🔴';
+      txt.textContent = 'Praticando agora...';
+      status.textContent = 'Fale em voz alta suas frases com diferentes tons por pelo menos 30 segundos.';
+    }else{
+      btn.classList.remove('recording');
+      dot.textContent = '⏺️';
+      txt.textContent = 'Marcar momento de prática';
+      status.textContent = 'Prática pausada. Clique de novo quando quiser focar na fala.';
+    }
+  }
+  function resetPractice(){
+    recording = false;
+    const btn = document.getElementById('record-btn');
+    const txt = document.getElementById('record-text');
+    const dot = document.getElementById('record-dot');
+    const status = document.getElementById('audio-status');
+    btn.classList.remove('recording');
+    dot.textContent = '⏺️';
+    txt.textContent = 'Marcar momento de prática';
+    status.textContent = 'Nenhum áudio real é gravado – use o botão como compromisso de prática em voz alta.';
+  }
+
+  function copyToSpreadsheet(){
+    const text = collectLessonText();
+    navigator.clipboard.writeText(text).then(()=>{
+      alert('Conteúdo copiado! Cole (Ctrl+V) na sua planilha.');
+    }).catch(()=>{
+      alert('Não foi possível copiar automaticamente. Selecione o texto manualmente.');
+    });
+  }
+  function collectLessonText(){
+    const blocks = [];
+    document.querySelectorAll('.card-inner').forEach(inner=>{
+      const clone = inner.cloneNode(true);
+      clone.querySelectorAll('button').forEach(b=>b.remove());
+      blocks.push(clone.innerText.trim());
+    });
+    return blocks.join('\n\n-----------------------------\n\n');
+  }
+</script>
+</body>
+</html>
